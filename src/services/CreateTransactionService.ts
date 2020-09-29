@@ -31,7 +31,9 @@ class CreateTransactionService {
     }
 
     let transactionCategory = await categoriesRepository.findOne({
-      title: category,
+      where: {
+        title: category,
+      },
     });
 
     if (!transactionCategory) {
@@ -46,7 +48,7 @@ class CreateTransactionService {
       title,
       value,
       type,
-      category_id: transactionCategory.id,
+      category: transactionCategory,
     });
 
     await transactionsRepository.save(transaction);

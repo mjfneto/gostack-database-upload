@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(routes);
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
+  /* eslint-disable no-console */
   if (err instanceof AppError) {
     return response.status(err.statusCode).json({
       status: 'error',
@@ -29,6 +30,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     status: 'error',
     message: 'Internal server error',
   });
+  /* eslint-enable no-console */
 });
 
 export default app;

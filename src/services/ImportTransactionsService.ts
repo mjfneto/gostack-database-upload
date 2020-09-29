@@ -20,14 +20,14 @@ class ImportTransactionsService {
     const categoriesRepository = getRepository(Category);
     const transactionsRepository = getCustomRepository(TransactionsRepository);
 
+    const transactions: Array<CSVTransaction> = [];
+
     const parsers = csvParse({
       from_line: 2,
       trim: true,
     });
 
     const parseCSV = readStream.pipe(parsers);
-
-    const transactions: Array<CSVTransaction> = [];
 
     parseCSV.on('data', async row => {
       const [title, type, value, category] = row;
